@@ -16,7 +16,7 @@ echo  "\n\n${YELLOW}activate virtual env${NC}"
 
 # install new requirements with pip
 echo "\n\n${YELLOW}install new requirements with pip (quiet mode)${NC}"
-pip install -r requirements.txt -q
+pip install -r webapp/requirements.txt -q
 
 # restart app
 echo "\n\n${YELLOW}restart app${NC}"
