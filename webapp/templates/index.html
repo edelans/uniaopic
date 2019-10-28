@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Uniao avatar creation tool</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h3 class="text-muted">Uniao avatar creation tool</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <img class="center-block" src=" {{url_for('send_image', filename='header2.png')}} " style="max-width: 900px;">
+            </div>
+          </div>
+
+        <div class="jumbotron">
+            <h1>Upload your image</h1>
+            <p class="lead"></p>
+	       <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <input id="file-picker" type="file" name="file" accept="image/*" class="hidden" onchange="this.form.submit()">
+            <label for="file-picker" class="btn btn-lg btn-success">Select file</label>
+		 </form>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Size</h4>
+                <p>Works with all sizes (will scale the image), best with images of min 624px (size of the template)</p>
+
+                <h4>Ratio</h4>
+                <p>Works with non square image, the algorithm will just crop the image and center it</p>
+
+            </div>
+
+            <div class="col-lg-6">
+              <h4>Format</h4>
+              <p>Works with jpg, png, bmp</p>
+
+            </div>
+        </div>
+
+
+        <footer class="footer">
+          <p>@edelans. Using Python, Flask, Numpy and PIL.</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
