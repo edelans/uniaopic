@@ -46,30 +46,26 @@ def upload():
     uniao = Image.open("static/images/uniao.png").convert("RGBA")
     uniao_h, uniao_w = uniao.size
 
-    # Open the input image, convert to RGBA
+    # Open input image, convert to RGBA, resize and crop input img to uniao size
     img = Image.open(destination).convert("RGBA")
-
-    # resize and crop input img to uniao size
     img = ImageOps.fit(img, (uniao_w, uniao_h), method=Image.LANCZOS)
 
     # Create same size alpha layer with circle
     alpha = Image.new("L", img.size, 0)
     draw = ImageDraw.Draw(alpha)
+    margin = 10  # to avoid picture overflowing outside uniao ring
+    draw.pieslice([margin, margin, uniao_h-margin, uniao_w-margin], 0, 360, fill=255)
 
-    draw.pieslice([5, 5, uniao_h-5, uniao_w-5], 0, 360, fill=255)
-
-    # paste uniao
-    img.paste(uniao, (0, 0), uniao)
-
-    # Convert alpha Image to numpy array
+    # Convert alpha image and input image to numpy array to add alpha layer to input image
     npAlpha = np.array(alpha)
     npImage = np.array(img.convert("RGB"))
-
-    # Add alpha layer to RGB
     npImage = np.dstack((npImage, npAlpha))
 
-    # Save with alpha
+    # convert back to PIL image
     res = Image.fromarray(npImage)
+
+    # paste uniao and save
+    res.paste(uniao, (0, 0), uniao)
     destination_uniao = "/".join([target, filename + ".uniao.png"])
     res.save(destination_uniao)
 
