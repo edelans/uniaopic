@@ -50,7 +50,7 @@ def upload():
     img = Image.open(destination).convert("RGBA")
 
     # resize and crop input img to uniao size
-    img = ImageOps.fit(img, (uniao_w, uniao_h), method=Image.ANTIALIAS)
+    img = ImageOps.fit(img, (uniao_w, uniao_h), method=Image.LANCZOS)
 
     # Create same size alpha layer with circle
     alpha = Image.new("L", img.size, 0)
