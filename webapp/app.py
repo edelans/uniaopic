@@ -32,7 +32,7 @@ def upload():
 
     # file support verification
     ext = os.path.splitext(filename)[1].lower()
-    if (ext == ".jpg") or (ext == ".png") or (ext == ".bmp"):
+    if (ext == ".jpg") or (ext == ".jpeg") or (ext == ".png") or (ext == ".bmp"):
         print("File accepted")
     else:
         return render_template("error.html", message="The selected file is not supported"), 400
