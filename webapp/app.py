@@ -70,7 +70,6 @@ def upload():
 
     return render_template('index.html')
 
-
 @app.route('/success/<string:image_name>')
 def success(image_name):
     return render_template("result.html", image_name=image_name)
