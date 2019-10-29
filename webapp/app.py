@@ -56,10 +56,8 @@ def upload():
     alpha = Image.new("L", img.size, 0)
     draw = ImageDraw.Draw(alpha)
 
-    draw.pieslice([5, 5, uniao_h-5, uniao_w-5], 0, 360, fill=255)
-
-    # paste uniao
-    img.paste(uniao, (0, 0), uniao)
+    m = 10
+    draw.pieslice([m, m, uniao_h - m, uniao_w - m], 0, 360, fill=255)
 
     # Convert alpha Image to numpy array
     npAlpha = np.array(alpha)
@@ -70,6 +68,10 @@ def upload():
 
     # Save with alpha
     res = Image.fromarray(npImage)
+
+    # paste uniao
+    res.paste(uniao, (0, 0), uniao)
+
     destination_uniao = "/".join([target, filename + ".uniao.png"])
     res.save(destination_uniao)
 
