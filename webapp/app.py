@@ -1,6 +1,13 @@
 # web-app for API image manipulation
 
-from flask import Flask, request, render_template, send_from_directory, redirect, url_for
+from flask import (
+    Flask,
+    request,
+    render_template,
+    send_from_directory,
+    redirect,
+    url_for,
+)
 import os
 import uuid
 import numpy as np
@@ -14,8 +21,8 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 # upload selected image and forward to processing page
 @app.route("/", methods=["GET", "POST"])
 def upload():
-    if request.method == 'POST':
-        target = os.path.join(APP_ROOT, 'static/images/uploads')
+    if request.method == "POST":
+        target = os.path.join(APP_ROOT, "static/images/uploads")
 
         # create image directory if not found
         if not os.path.isdir(target):
@@ -31,7 +38,12 @@ def upload():
         if (ext == ".jpg") or (ext == ".jpeg") or (ext == ".png") or (ext == ".bmp"):
             print("File accepted")
         else:
-            return render_template("error.html", message="The selected file is not supported"), 400
+            return (
+                render_template(
+                    "error.html", message="The selected file is not supported"
+                ),
+                400,
+            )
 
         # save file
         destination = "/".join([target, filename])
@@ -50,7 +62,9 @@ def upload():
         alpha = Image.new("L", img.size, 0)
         draw = ImageDraw.Draw(alpha)
         margin = 10  # to avoid picture overflowing outside uniao ring
-        draw.pieslice([margin, margin, uniao_h-margin, uniao_w-margin], 0, 360, fill=255)
+        draw.pieslice(
+            [margin, margin, uniao_h - margin, uniao_w - margin], 0, 360, fill=255
+        )
 
         # Convert alpha image and input image to numpy array to add alpha layer to input image
         npAlpha = np.array(alpha)
@@ -66,17 +80,18 @@ def upload():
         res.save(destination_uniao)
 
         # forward to result page
-        return redirect(url_for('success', image_name=filename))
+        return redirect(url_for("success", image_name=filename))
 
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/success/<string:image_name>')
+
+@app.route("/success/<string:image_name>")
 def success(image_name):
     return render_template("result.html", image_name=image_name)
 
 
 # retrieve file from 'static/images' directory
-@app.route('/static/images/<filename>')
+@app.route("/static/images/<filename>")
 def send_image(filename):
     return send_from_directory("static/images", filename)
 
@@ -92,7 +107,7 @@ def generate_uuid4_filename(filename):
     """
     discard, ext = os.path.splitext(filename)
     basename = uuid.uuid4().urn
-    return ''.join([basename, ext])
+    return "".join([basename, ext])
 
 
 if __name__ == "__main__":
