@@ -52,7 +52,7 @@ def upload():
 
         # open uniao Image
         uniao = Image.open("static/images/uniao.png").convert("RGBA")
-        uniao_h, uniao_w = uniao.size
+        uniao_w, uniao_h  = uniao.size
 
         # Open input image, convert to RGBA, resize and crop input img to uniao size
         img = Image.open(destination).convert("RGBA")
@@ -79,6 +79,41 @@ def upload():
         destination_uniao = "/".join([target, filename + ".uniao.png"])
         res.save(destination_uniao)
 
+        ###########################################
+        # steps for squared uniao
+
+        # open uniao Image
+        uniao = Image.open("static/images/square_uniao.png").convert("RGBA")
+        uniao_w, uniao_h  = uniao.size
+
+        # Open input image, convert to RGBA, resize and crop input img to uniao size
+        img = Image.open(destination).convert("RGBA")
+        img = ImageOps.fit(img, (uniao_w, uniao_h), method=Image.LANCZOS)
+
+        # Create same size alpha layer with square
+        alpha = Image.new("L", img.size, 0)
+        draw = ImageDraw.Draw(alpha)
+        margin = 10  # to avoid picture overflowing outside uniao ring
+        draw.rectangle(
+            [margin, margin, uniao_h - margin, uniao_w - margin], fill=255
+        )
+
+        # Convert alpha image and input image to numpy array to add alpha layer to input image
+        npAlpha = np.array(alpha)
+        npImage = np.array(img.convert("RGB"))
+        npImage = np.dstack((npImage, npAlpha))
+
+        # convert back to PIL image
+        res = Image.fromarray(npImage)
+
+        # paste uniao and save
+        res.paste(uniao, (0, 0), uniao)
+        destination_uniao = "/".join([target, filename + ".square.uniao.png"])
+        res.save(destination_uniao)
+
+
+
+        ###########################################
         # forward to result page
         return redirect(url_for("success", image_name=filename))
 

@@ -31,12 +31,27 @@
           <div class="row">
               <div class="col-lg-12">
                 <a download='uniao_profile_pic.png' href="{{url_for('send_image', filename='uploads/' + image_name+'.uniao.png')}}" title="ImageName" class="btn btn-lg btn-success" style="margin-top:48px;">
-                    Download your new profile pic
+                    Download your new profile pic (rounded)
                 </a>
               </div>
           </div>
         </div>
 
+        <div class="jumbotron">
+          <div class="row">
+              <div class="col-lg-12">
+                  <img class="center-block" src=" {{url_for('send_image', filename='uploads/' + image_name+'.square.uniao.png')}} " style="max-width: 560px;">
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-12">
+                <a download='uniao_profile_pic.png' href="{{url_for('send_image', filename='uploads/' + image_name+'.square.uniao.png')}}" title="ImageName" class="btn btn-lg btn-success" style="margin-top:48px;">
+                    Download your new profile pic (squared)
+                </a>
+              </div>
+          </div>
+        </div>
 
         <footer class="footer">
           <p>Built with Python, Flask, Numpy and PIL : <a href="https://github.com/edelans/uniaopic">Check me on github</a> </p>
