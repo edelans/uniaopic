@@ -7,7 +7,7 @@ routers:
 - name: main
   custom_domains:
   - branch: master
-    domain: uniao.edelans.com
+    domain: http://uniao.edelans.com
   routes:
   - application_name: uniaopic
     paths:
