@@ -5,6 +5,9 @@ application:
   organization: QoveryCommunity
 routers:
 - name: main
+  custom_domains:
+  - branch: master
+    domain: uniao.edelans.com
   routes:
   - application_name: uniaopic
     paths:
