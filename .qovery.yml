@@ -1,0 +1,11 @@
+application:
+  name: uniaopic
+  project: uniaopic
+  publicly_accessible: true
+  organization: QoveryCommunity
+routers:
+- name: main
+  routes:
+  - application_name: uniaopic
+    paths:
+    - /
