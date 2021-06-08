@@ -4,5 +4,5 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 numpy==1.19.2
-Pillow==8.0.1
+Pillow==8.2.0
 Werkzeug==1.0.1
